@@ -1,0 +1,47 @@
+<h2 *ngIf="aggregation">{{aggregation!.name}}</h2>
+
+<button (click)="goBack()">go back</button>
+
+<form (ngSubmit)="getResult()">
+    <div *ngIf="aggregation">
+        <ul>
+            <li *ngFor="let parameter of aggregation!.parameters">
+              <input placeholder="{{parameter}}" id="{{parameter}}">
+            </li>
+        </ul>
+    </div>
+
+    <button type="submit">Result</button>
+</form>
+
+<h4>The Result is: </h4>
+
+<div *ngIf="aggregation!.resultType=='number'">
+    <ul>
+        <li>{{resultNumber}}</li>
+    </ul>
+</div>
+
+<div *ngIf="aggregation!.resultType=='users'">
+    <ul>
+        <li *ngFor="let user of resultUsers">
+            <a routerLink="/users/{{user.id}}">{{user.username}}</a>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="aggregation!.resultType=='playlists'">
+    <ul>
+        <li *ngFor="let playlist of resultPlaylists">
+            <a routerLink="/playlists/{{playlist.id}}">{{playlist.name}}</a>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="aggregation!.resultType=='songs'">
+    <ul>
+        <li *ngFor="let song of resultSongs">
+            <a routerLink="/songs/{{song.id}}">{{song.track}}</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,9 @@
+<h2>Users</h2>
+
+<ul class="followers">
+  <li *ngFor="let follower of followers">
+    <a routerLink="/users/{{follower.id}}">
+      {{follower.username}}
+    </a>
+  </li>
+</ul>

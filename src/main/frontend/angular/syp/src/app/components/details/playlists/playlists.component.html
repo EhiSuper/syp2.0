@@ -1,0 +1,9 @@
+<h2>Playlists</h2>
+
+<ul class="playlists">
+  <li *ngFor="let playlist of playlists">
+    <a routerLink="/playlists/{{playlist.id}}">
+      {{playlist.name}}
+    </a>
+  </li>
+</ul>

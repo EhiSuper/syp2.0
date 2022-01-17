@@ -1,0 +1,10 @@
+<h2>Aggregations</h2>
+
+<div>
+    <ul>
+        <li *ngFor="let aggregation of aggregations">
+            <a *ngIf="aggregation.access == 'user' || (aggregation.access == 'admin' && userLoggedIn!.isAdmin == true)"
+                routerLink="/aggregations/{{aggregation.name}}">{{aggregation.name}}</a>
+        </li>
+    </ul>
+</div>

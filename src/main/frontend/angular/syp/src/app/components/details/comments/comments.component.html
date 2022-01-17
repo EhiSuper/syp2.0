@@ -1,0 +1,46 @@
+<h2>Comments</h2>
+<h3 *ngIf="option == 'song' && avgVote != undefined">Avarage Vote: {{avgVote}}</h3>
+
+<button *ngIf="commented == false && option == 'song'" (click)="showCommentForm = !showCommentForm">Add Comment</button>
+<div *ngIf="showCommentForm == true">
+  <form (ngSubmit)="addComment()">
+    <div class="form-group">
+      <label>
+        Inserisci il voto
+      </label>
+      <input type="number" id="addingvote" name="vote" class="form-control" required placeholder="Insert the vote"
+        [(ngModel)]="newCommentVote">
+    </div>
+    <div class="form-group">
+      <input type="text" id="addingbody" name="body" class="form-control" required placeholder="Insert the comment"
+        [(ngModel)]="newCommentBody">
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+
+<div>
+  <ul class="comments">
+    <li *ngFor="let comment of comments">
+      <a *ngIf="option == 'user'" routerLink="/songs/{{comment.song!.id}}">{{comment.song!.track}}</a>
+      <a *ngIf="option == 'song'" routerLink="/users/{{comment.user!.id}}">{{comment.user!.username}}</a>
+      <b>vote:</b> {{comment.vote}} <b>comment:</b> {{comment.body}}
+      <!-- Date: {{comment.date | date:'medium'}} -->
+      <button *ngIf="checkAllowed(comment)" (click)="showModifyForm(comment.id)">Modify</button>
+      <div *ngIf="modifyForm == comment.id">
+        <form (ngSubmit)="saveComment(comment)">
+          <div class="form-group">
+            <label for="vote">Vote: </label>
+            <input type="number" id="vote" name="vote" class="form-control" required [(ngModel)]="comment.vote" max="5">
+          </div>
+          <div class="form-group">
+            <label for="body">Body: </label>
+            <input type="text" id="body" name="body" class="form-control" required [(ngModel)]="comment.body">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+      </div>
+      <button *ngIf="checkAllowed(comment)" (click)="deleteComment(comment)">Delete</button>
+    </li>
+  </ul>
+</div>

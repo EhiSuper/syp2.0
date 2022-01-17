@@ -1,0 +1,49 @@
+<button *ngIf="logged==false"><a routerLink="/login">Login</a></button>
+<button *ngIf="logged==false"><a routerLink="/subscribe">Subscribe</a></button>
+<button *ngIf="logged==true"><a routerLink="/users/{{userLoggedIn!.id}}">Hi {{userLoggedIn!.username}}</a></button>
+<button *ngIf="logged==true" (click)="logout()">Logout</button>
+<button *ngIf="allowed==true"><a routerLink="/addSong">Add a new song</a></button>
+<button *ngIf="logged==true"><a routerLink="/addPlaylist">Add a new Playlist</a></button>
+<button *ngIf="logged==true"><a routerLink="/aggregations">Aggregations</a></button>
+
+<div *ngIf="option == 'playlist' && logged == false">
+  <h2>Top Playlists</h2>
+<div class="playlists-menu">
+  <a *ngFor="let playlist of playlists"
+      routerLink="/playlists/{{playlist.id}}">
+      {{playlist.name}}
+  </a>
+</div>
+</div>
+
+<div *ngIf="option == 'playlist' && logged == true">
+  <h2>Suggested Playlists</h2>
+<div class="playlists-menu">
+  <a *ngFor="let playlist of playlists"
+      routerLink="/playlists/{{playlist.id}}">
+      {{playlist.name}}
+  </a>
+</div>
+</div>
+
+<div *ngIf="option == 'song'">
+  <h2>Top Songs</h2>
+<div class="songs-menu">
+  <a *ngFor="let song of songs"
+      routerLink="/songs/{{song.id}}">
+      {{song.track}}
+  </a>
+</div>
+</div>
+
+<div *ngIf="option == 'user'">
+  <h2>Top Users</h2>
+<div class="users-menu">
+  <a *ngFor="let user of users"
+      routerLink="/users/{{user.id}}">
+      {{user.username}}
+  </a>
+</div>
+</div>
+
+<app-search-bar (newOptionEvent)="changeOption($event)"></app-search-bar>

@@ -1,0 +1,31 @@
+<div class="container">
+    <div>
+        <h1>Add a new Playlist</h1>
+        <form (ngSubmit)="addPlaylist()">
+            <div class="form-group">
+                <input type="text" class="form-control" id="name" required name="name" placeholder="Name"
+                    [(ngModel)]="name">
+            </div>
+
+            <label for="songs">Add songs</label>
+            <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+            <div>
+                <ul>
+                    <li *ngFor="let song of songsList">
+                        {{song.track}}, {{song.artist}}
+                    </li>
+                </ul>
+            </div>
+
+            <ul class="search-result">
+                <li *ngFor="let song of songs$ | async">
+                    <a (click)="addSong(song)">
+                        {{song.track}}, {{song.artist}}
+                    </a>
+                </li>
+            </ul>
+            <button type="submit" class="btn btn-success">Add Playlist</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+.comments a{
+  text-decoration: none;
+  font-size: 1.2rem;
+  width:30%;
+  border:0px;
+  padding:2px;
+  border-bottom: 1.5px solid lightgrey;
+}
+
+.comments a:hover{
+  background-color:lightgrey;
+}
+
+.comments li{
+  font-size: 1.1rem;
+  border: 0.5px solid black;
+  margin-bottom:3px;
+  margin-left:0px;
+}
+

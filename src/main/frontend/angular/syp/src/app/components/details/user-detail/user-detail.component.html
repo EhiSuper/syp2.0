@@ -1,0 +1,50 @@
+<div *ngIf="user">
+  <h2>{{user.username}} Details</h2>
+  <div class="details">
+    <div>
+      <label for="user-username">Username: </label>
+      <label id="user-username">{{user.username}}</label>
+    </div>
+    <div>
+      <label for="user-dateOfCreation">Date of Creation: </label>
+      <label id="user-dateOfCreation">{{user.dateOfCreation | date }}</label>
+    </div>
+  </div>
+  <div>
+    <button *ngIf="followed==false && myAccount==false" (click)="follow()">Follow</button>
+    <button *ngIf="followed==true && myAccount==false" (click)="unfollow()">Unfollow</button>
+    <button *ngIf="allowed == true" (click)="modifyUser()">Modify the User</button>
+    <div *ngIf="showModifyForm == true">
+      <form (ngSubmit)="saveUser()">
+        <div class="form-group">
+          <label for="username">Username: </label>
+          <input type="text" id="username" name="username" class="form-control" required [(ngModel)]="user.username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password: </label>
+          <input type="text" id="password" name="password" class="form-control" required [(ngModel)]="user.password">
+        </div>
+        <div class="form-group" *ngIf="userLoggedIn!.isAdmin==true">
+          <label for="isAdmin">Admin: </label>
+          <input type="checkbox" id="isAdmin" name="isAdmin" class="form-control" required [(ngModel)]="user.isAdmin">
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+    <button *ngIf="allowed == true" (click)="deleteUser()">Delete The user</button>
+  </div>
+  <div>
+    <button (click)="goBack()">go back</button>
+    <button (click)="setShow('playlistsCreated')">Playlists Created</button>
+    <button (click)="setShow('playlistsFollowed')">Playlists Followed</button>
+    <button (click)="setShow('comments')">Comments written</button>
+    <button (click)="setShow('followers')">Followers</button>
+    <button (click)="setShow('followed')">Followed</button>
+  </div>
+</div>
+
+<app-playlists *ngIf="show=='playlistsCreated'" [user]="user" [option]="'created'"></app-playlists>
+<app-playlists *ngIf="show=='playlistsFollowed'" [user]="user" [option]="'followed'"></app-playlists>
+<app-comments *ngIf="show=='comments'" [user]="user" [option]="'user'" [userLoggedIn]="userLoggedIn"></app-comments>
+<app-followers *ngIf="show=='followers'" [user]="user" [option]="'followers'"></app-followers>
+<app-followers *ngIf="show=='followed'" [user]="user" [option]="'followed'"></app-followers>

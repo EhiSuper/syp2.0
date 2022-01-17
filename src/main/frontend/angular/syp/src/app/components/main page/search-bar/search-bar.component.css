@@ -1,0 +1,13 @@
+  .search-result li a {
+    border: 2px solid black;
+    display: inline-block;
+    width: 1000%;
+    max-width: 400px;
+    padding: .5rem;
+    text-decoration: none;
+  }
+
+  .search-result li a:hover {
+    background-color: lightgrey;
+  }
+

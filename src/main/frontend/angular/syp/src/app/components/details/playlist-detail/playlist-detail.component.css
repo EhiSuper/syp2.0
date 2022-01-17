@@ -1,0 +1,8 @@
+  #playlist-creator a{
+    margin-left:0px;
+    text-decoration: none;
+    font-weight:bold;
+  }
+  #playlist-creator:hover{
+    background-color: lightgrey;
+  }

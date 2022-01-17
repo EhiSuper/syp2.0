@@ -1,0 +1,24 @@
+<h2>Songs</h2>
+
+<div *ngIf="showModifyForm == true">
+  <label for="songs">Add songs</label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let song of songs$ | async">
+      <a (click)="addSong(song)">
+        {{song.track}}, {{song.artist}}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<ul class="songs">
+  <li *ngFor="let song of playlist!.songs">
+    <a routerLink="/songs/{{song.id}}">
+      {{song.track}}, {{song.artist}}
+    </a>
+    <button *ngIf="showModifyForm == true" class="delete" title="delete song"
+      (click)="deleteSongFromPlaylist(song)">x</button>
+  </li>
+</ul>

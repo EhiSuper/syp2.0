@@ -1,0 +1,33 @@
+<div class="container">
+    <div>
+        <h1>Add a new song</h1>
+        <form (ngSubmit)="addSong()">
+            <div class="form-group">
+                <input type="text" class="form-control" id="track" required name="track" placeholder="Track"
+                    [(ngModel)]="track" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="artist" required name="artist" placeholder="Artist"
+                    [(ngModel)]="artist" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="year" required name="year" placeholder="Year"
+                    [(ngModel)]="year">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="lyric" required name="lyric" placeholder="Lyric"
+                    [(ngModel)]="lyric">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="album" required name="album" placeholder="Album"
+                    [(ngModel)]="album">
+            </div>
+            
+            <button type="submit" class="btn btn-success">Add Song</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div *ngIf="playlist">
+  <h2>{{playlist.name}} Details</h2>
+  <div class="details">
+    <div>
+      <label *ngIf="playlist.name" for="playlist-name">Playlist name: </label>
+      <label *ngIf="playlist.name" id="playlist-name">{{playlist.name}}</label>
+    </div>
+    <div>
+      <label *ngIf="playlist.creationDate" for="playlist-creationDate">Creation date: </label>
+      <label *ngIf="playlist.creationDate" id="playlist-creationDate">{{playlist.creationDate | date}}</label>
+    </div>
+    <div>
+      <label *ngIf="playlist.creator" for="playlist-creator">Creator: </label>
+      <label *ngIf="playlist.creator" id="playlist-creator"><a
+          routerLink="/users/{{playlist.creator.id}}">{{playlist.creator.username}}</a></label>
+    </div>
+  </div>
+  <div>
+    <button *ngIf="followed == false" (click)="follow()">Follow</button>
+    <button *ngIf="followed == true " (click)="unfollow()">Unfollow</button>
+    <button *ngIf="allowed == true" (click)="modifyPlaylist()">Modify the playlist</button>
+    <div *ngIf="showModifyForm == true">
+      <form (ngSubmit)="savePlaylist()">
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input type="text" id="name" name="name" class="form-control" required [(ngModel)]="playlist.name">
+        </div>
+        <div class="form-group">
+          <label for="creationDate">Creation date: </label>
+          <input type="date" id="creationDate" name="creationDate" class="form-control" required
+            [(ngModel)]="playlist.creationDate">
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+    <button *ngIf="allowed == true" (click)="deletePlaylist()">Delete the playlist</button>
+  </div>
+  <div>
+    <button (click)="goBack()">go back</button>
+    <button (click)="setShow('songs')">Songs</button>
+    <button (click)="setShow('followers')">Followers</button>
+  </div>
+</div>
+
+<app-songs *ngIf="show=='songs'" [allowed]="allowed" [playlist]="playlist" [showModifyForm]="showModifyForm">
+</app-songs>
+<app-followers *ngIf="show=='followers'" [playlist]="playlist" [option]="'playlist'"></app-followers>
