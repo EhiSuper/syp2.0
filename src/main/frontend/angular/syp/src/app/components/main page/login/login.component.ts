@@ -13,6 +13,14 @@ export class LoginComponent implements OnInit {
   user: User | undefined
   username: string | undefined
   password: string | undefined
+  admin: User = {
+    id: "1",
+    username: "admin",
+    password: "admin",
+    isAdmin: true,
+    dateOfBirth: new Date(),
+    dateOfCreation: new Date()
+  }
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -21,10 +29,13 @@ export class LoginComponent implements OnInit {
 
   //function to login the user
   login(): void {
+    /*
     this.userService.getUserByUsername(this.username!)
       .subscribe((user) => {
         this.setUser(user[0])
       });
+    */
+   this.setUser(this.admin)
   }
 
   //function to set the logged user in the local storage

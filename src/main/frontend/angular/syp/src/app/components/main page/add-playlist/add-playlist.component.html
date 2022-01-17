@@ -7,11 +7,12 @@
                     [(ngModel)]="name">
             </div>
 
+            <div>
             <label for="songs">Add songs</label>
             <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
             <div>
-                <ul>
+                <ul class="search-result">
                     <li *ngFor="let song of songsList">
                         {{song.track}}, {{song.artist}}
                     </li>
@@ -25,6 +26,25 @@
                     </a>
                 </li>
             </ul>
+            </div>
+            <div>
+                <h3>Suggested songs</h3>
+                <h4>How these songs are Suggested?</h4>
+                <p>These songs are suggested based on playlists you follow.
+                    In particular, here are shown the most popular songs of artists that are frequently associated with the artists of the songs that you choose
+                    in the previous section. 
+                </p>
+
+                <div>
+                    <ul>
+                        <li *ngFor="let song of suggestedSongs">
+                            <a (click)="addSong(song)">
+                                {{song.track}}, {{song.artist}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <button type="submit" class="btn btn-success">Add Playlist</button>
         </form>
     </div>

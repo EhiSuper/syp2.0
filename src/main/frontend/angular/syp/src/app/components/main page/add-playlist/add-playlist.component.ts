@@ -23,6 +23,7 @@ export class AddPlaylistComponent implements OnInit {
   songs$!: Observable<Song[]>
   private searchTerms = new Subject<string>()
   userLoggedIn: User | undefined
+  suggestedSongs: Song[] | undefined
 
   constructor(
     private songService: SongService,
@@ -81,5 +82,12 @@ export class AddPlaylistComponent implements OnInit {
     songToBeAdded.track = song.track
     songToBeAdded.artist = song.artist
     this.songsList.push(songToBeAdded)
+    this.getSuggestedSongs()
+  }
+
+  //function to get the suggested songs based of the added songs
+  getSuggestedSongs(): void{
+    this.songService.getSuggestedSongs(this.songsList)
+      .subscribe(songs => this.suggestedSongs = songs)
   }
 }

@@ -67,6 +67,14 @@ export class SongService {
     ).subscribe();
   }
 
+  /**GET: get suggested songs based on added songs */
+  getSuggestedSongs(songs: Song[]){
+    const url = `${this.songsUrl}/suggestedSongs`;
+    return this.http.post<Song[]>(url, songs).pipe(
+      catchError(this.handleError<Song[]>('get suggested songs'))
+    )
+  }
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.
