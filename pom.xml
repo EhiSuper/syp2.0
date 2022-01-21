@@ -41,6 +41,24 @@
     		<artifactId>spring-data-mongodb</artifactId>
     		<version>3.3.1</version>
   		</dependency>
+
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>5.5.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>weka-stable</artifactId>
+			<version>3.8.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>denormalize</artifactId>
+			<version>1.0.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
