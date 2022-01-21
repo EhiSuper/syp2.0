@@ -2,7 +2,6 @@ package it.unipi.dii.inginf.lsdb.syp.song;
 
 import it.unipi.dii.inginf.lsdb.syp.playlist.Playlist;
 
-import org.apache.tomcat.util.bcel.Const;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
-import it.unipi.dii.inginf.lsdb.syp.FrequentArtists;
+import it.unipi.dii.inginf.lsdb.syp.rule.Rule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -207,16 +206,16 @@ public class SongService {
 
     List<String> getSequenceArtistsFromAntecedentArtists(List<String> antecedentArtists){
         List<String> sequenceArtists = new ArrayList<>();
-        List<FrequentArtists> frequentArtists = new ArrayList<>();
+        List<Rule> rules = new ArrayList<>();
         for(String artist : antecedentArtists){
             try{
-                frequentArtists = mongoTemplate.find(query(where("antecedentArtists").is(artist)), FrequentArtists.class);
+                rules = mongoTemplate.find(query(where("premise").is(artist)), Rule.class);
             }catch (Exception e){
                 e.printStackTrace();
                 throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
             }
-            for(FrequentArtists pattern: frequentArtists){
-                for(String sequenceArtist: pattern.getSequenceArtists()){
+            for(Rule pattern: rules){
+                for(String sequenceArtist: pattern.getConsequent()){
                      if(!sequenceArtists.contains(sequenceArtist)) sequenceArtists.add(sequenceArtist);
                 }
             }
