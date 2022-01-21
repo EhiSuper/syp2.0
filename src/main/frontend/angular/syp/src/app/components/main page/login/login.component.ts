@@ -29,13 +29,12 @@ export class LoginComponent implements OnInit {
 
   //function to login the user
   login(): void {
-    /*
+    
     this.userService.getUserByUsername(this.username!)
       .subscribe((user) => {
         this.setUser(user[0])
       });
-    */
-   this.setUser(this.admin)
+    
   }
 
   //function to set the logged user in the local storage

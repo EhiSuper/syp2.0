@@ -59,4 +59,9 @@ public class SongController {
     Double getAverageCommentsPerSong() {
         return songService.getAverageCommentsPerSong();
     }
+
+    @PostMapping("/api/songs/suggestedSongs")
+    List<Song> getSuggestedSongs(@RequestBody List<Song> selectedSongs){
+        return songService.getSuggestedSongs(selectedSongs);
+    }
 }

@@ -1,6 +1,8 @@
 package it.unipi.dii.inginf.lsdb.syp.song;
 
 import it.unipi.dii.inginf.lsdb.syp.playlist.Playlist;
+
+import org.apache.tomcat.util.bcel.Const;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
@@ -12,6 +14,9 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+import it.unipi.dii.inginf.lsdb.syp.FrequentArtists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +36,7 @@ public class SongService {
 
     List<Song> getSongsByRegex(String regex){
         try{
-            Query findSongsByRegex = new Query(Criteria.where("track").regex("^" + regex, "i"));
-            return mongoTemplate.find(findSongsByRegex, Song.class);
+            return mongoTemplate.find(query(where("track").regex("^" + regex, "i")), Song.class);
         } catch (Exception e){
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
@@ -185,4 +189,63 @@ public class SongService {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
+
+    
+    public List<Song> getSuggestedSongs(List<Song> selectedSongs){
+        List<String> antecedentArtists = getArtistsFromSongs(selectedSongs);
+        List<String> sequenceArtists = getSequenceArtistsFromAntecedentArtists(antecedentArtists);
+        return getPopularSongsFromArtists(sequenceArtists, selectedSongs);
+    }
+
+    List<String> getArtistsFromSongs(List<Song> selectedSongs){
+        List<String> artists = new ArrayList<>();
+        for(Song song : selectedSongs){
+            artists.add(song.getArtist());
+        }
+        return artists;
+    }
+
+    List<String> getSequenceArtistsFromAntecedentArtists(List<String> antecedentArtists){
+        List<String> sequenceArtists = new ArrayList<>();
+        List<FrequentArtists> frequentArtists = new ArrayList<>();
+        for(String artist : antecedentArtists){
+            try{
+                frequentArtists = mongoTemplate.find(query(where("antecedentArtists").is(artist)), FrequentArtists.class);
+            }catch (Exception e){
+                e.printStackTrace();
+                throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+            }
+            for(FrequentArtists pattern: frequentArtists){
+                for(String sequenceArtist: pattern.getSequenceArtists()){
+                     if(!sequenceArtists.contains(sequenceArtist)) sequenceArtists.add(sequenceArtist);
+                }
+            }
+        }
+        return sequenceArtists;
+    }
+
+    List<Song> getPopularSongsFromArtists(List<String> sequenceArtists, List<Song> selectedSongs){
+        final int numberOfSongsReturned = 10;
+        List<String> trackSelectedSongs = new ArrayList<>();
+        for(Song track: selectedSongs){
+            trackSelectedSongs.add(track.getIdentifier());
+        }
+        Aggregation getPopularsongsFromArtists = newAggregation(
+            match(where("_id").nin(trackSelectedSongs)),
+            match(where("artist").in(sequenceArtists)),
+            project("_id", "track", "artist").and("$playlists").size().as("numberOfPlaylists"),
+            sort(Sort.Direction.DESC, "numberOfPlaylists"),
+            limit(numberOfSongsReturned)
+        );
+
+        try{
+            AggregationResults<Song> results = mongoTemplate.aggregate(getPopularsongsFromArtists, "songs", Song.class);
+            List<Song> songs = results.getMappedResults();
+            return songs;
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+    }
+    
 }
