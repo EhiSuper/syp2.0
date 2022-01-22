@@ -82,7 +82,11 @@ public class RuleMining {
         miner.setUpperBoundMinSupport(minSup);
         miner.setLowerBoundMinSupport(minSup);
         miner.setMinMetric(minConf);
+        Long initialTime = System.currentTimeMillis();
         miner.buildAssociations(denormalizedDataset);
+        Long timeTook = System.currentTimeMillis() - initialTime;
+        Double seconds = timeTook.doubleValue() / 1000;
+        System.out.println("Tempo impiegato: " + seconds + " secondi");
         System.out.println(miner);
         return miner.getAssociationRules().getRules();
     }
