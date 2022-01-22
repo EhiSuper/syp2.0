@@ -91,9 +91,13 @@ public class RuleService {
     public void saveRules(List<AssociationRule> rules){
             dropRuleCollection();
             for(AssociationRule rule: rules){
-                Rule ruleDTO = new Rule(null, null, null);
+                Rule ruleDTO = new Rule(null, null, null,
+                                   null, null, null);
                 ruleDTO.setPremise(rule.getPremise());
                 ruleDTO.setConsequent(rule.getConsequence());
+                ruleDTO.setPremiseSupport(rule.getPremiseSupport());
+                ruleDTO.setConsequentSupport(rule.getConsequenceSupport());
+                ruleDTO.setRuleSupport(rule.getTotalSupport());
                 saveRule(ruleDTO);
             }
     }

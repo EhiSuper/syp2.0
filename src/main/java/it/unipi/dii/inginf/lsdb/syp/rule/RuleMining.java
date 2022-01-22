@@ -15,11 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RuleMining {
+
+    public static Double minSup = 0.003;
+    public static Double minConf = 0.6;
     public static List<AssociationRule> minePatterns(List<String[]> records) throws Exception{
         List<Instances> datasets = createDataset(records);
-        System.out.println(datasets.get(1));
         Instances denormalizedDataset = denormalizeDataset(datasets);
-        return runApriori(denormalizedDataset);
+        return runFPGrowth(denormalizedDataset);
     }
 
     private static List<Instances> createDataset(List<String[]> records) throws Exception{
@@ -48,7 +50,6 @@ public class RuleMining {
 
 
     private static Instances denormalizeDataset(List<Instances> datasets) throws Exception{
-        Instances structure = datasets.get(0);
         Instances dataset = datasets.get(1);
         Denormalize denormalizeFilter = new Denormalize();
         denormalizeFilter.setInputFormat(dataset);
@@ -63,20 +64,24 @@ public class RuleMining {
 
     private static List<AssociationRule> runFPGrowth(Instances denormalizedDataset) throws Exception{
         FPGrowth miner = new FPGrowth();
-        miner.setUpperBoundMinSupport(0.0025);
-        miner.setLowerBoundMinSupport(0.0025);
-        miner.setMinMetric(0.5);
+        miner.setUpperBoundMinSupport(minSup);
+        miner.setLowerBoundMinSupport(minSup);
+        miner.setMinMetric(minConf);
         miner.setFindAllRulesForSupportLevel(true);
+        Long initialTime = System.currentTimeMillis();
         miner.buildAssociations(denormalizedDataset);
+        Long timeTook = System.currentTimeMillis() - initialTime;
+        Double seconds = timeTook.doubleValue() / 1000;
+        System.out.println("Tempo impiegato: " + seconds + " secondi");
         System.out.println(miner);
         return miner.getAssociationRules().getRules();
     }
 
     private static List<AssociationRule> runApriori(Instances denormalizedDataset) throws Exception{
         Apriori miner = new Apriori();
-        miner.setUpperBoundMinSupport(0.0025);
-        miner.setLowerBoundMinSupport(0.0025);
-        miner.setMinMetric(0.5);
+        miner.setUpperBoundMinSupport(minSup);
+        miner.setLowerBoundMinSupport(minSup);
+        miner.setMinMetric(minConf);
         miner.buildAssociations(denormalizedDataset);
         System.out.println(miner);
         return miner.getAssociationRules().getRules();

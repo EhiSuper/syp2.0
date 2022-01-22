@@ -14,11 +14,17 @@ public class Rule {
     private String identifier;
     private ArrayList<String> premise;
     private ArrayList<String> consequent;
+    private Integer premiseSupport;
+    private Integer consequentSupport;
+    private Integer ruleSupport;
 
-    public Rule(String identifier, ArrayList<String> premise, ArrayList<String> consequent) {
+    public Rule(String identifier, ArrayList<String> premise, ArrayList<String> consequent, Integer premiseSupport, Integer consequentSupport, Integer ruleSupport) {
         this.identifier = identifier;
         this.premise = premise;
         this.consequent = consequent;
+        this.premiseSupport = premiseSupport;
+        this.consequentSupport = consequentSupport;
+        this.ruleSupport = ruleSupport;
     }
 
     public String getIdentifier() {
@@ -65,5 +71,27 @@ public class Rule {
         this.consequent = consequent;
     }
 
+    public Integer getPremiseSupport() {
+        return premiseSupport;
+    }
 
+    public void setPremiseSupport(Integer premiseSupport) {
+        this.premiseSupport = premiseSupport;
+    }
+
+    public Integer getConsequentSupport() {
+        return consequentSupport;
+    }
+
+    public void setConsequentSupport(Integer consequentSupport) {
+        this.consequentSupport = consequentSupport;
+    }
+
+    public Integer getRuleSupport() {
+        return ruleSupport;
+    }
+
+    public void setRuleSupport(Integer ruleSupport) {
+        this.ruleSupport = ruleSupport;
+    }
 }
