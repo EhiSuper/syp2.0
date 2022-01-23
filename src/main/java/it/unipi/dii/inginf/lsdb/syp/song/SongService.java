@@ -207,17 +207,21 @@ public class SongService {
     List<String> getSequenceArtistsFromAntecedentArtists(List<String> antecedentArtists){
         List<String> sequenceArtists = new ArrayList<>();
         List<Rule> rules = new ArrayList<>();
-        for(String artist : antecedentArtists){
-            try{
-                rules = mongoTemplate.find(query(where("premise").is(artist)), Rule.class);
-            }catch (Exception e){
-                e.printStackTrace();
-                throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
-            }
-            for(Rule pattern: rules){
-                for(String sequenceArtist: pattern.getConsequent()){
-                     if(!sequenceArtists.contains(sequenceArtist)) sequenceArtists.add(sequenceArtist);
+        try{
+            rules = mongoTemplate.find(query(where("premise").size(antecedentArtists.size()).all(antecedentArtists)), Rule.class);
+            if(rules.size() == 0){
+                rules = mongoTemplate.find(query(where("premise").all(antecedentArtists)), Rule.class);
+                if(rules.size() == 0){
+                    rules = mongoTemplate.find(query(where("premise").in(antecedentArtists)), Rule.class);
                 }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        for(Rule pattern: rules){
+            for(String artist: pattern.getConsequent()){
+                 if(!sequenceArtists.contains(artist)) sequenceArtists.add(artist);
             }
         }
         return sequenceArtists;
