@@ -75,6 +75,13 @@ export class SongService {
     )
   }
 
+  mineRules(){
+    const url = `${this.songsUrl}/findRules`;
+    return this.http.get<String>(url).pipe(
+      catchError(this.handleError<String>("findRules"))
+    )
+  }
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.

@@ -85,4 +85,8 @@ export class DashboardComponent implements OnInit {
         })
     }
   }
+
+  mineRules(): void{
+    this.songService.mineRules().subscribe();
+  }
 }
