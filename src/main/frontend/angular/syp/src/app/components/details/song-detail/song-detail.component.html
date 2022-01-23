@@ -9,22 +9,6 @@
       <label for="song-artist">Artist: </label>
       <label id="song-artist">{{song.artist}}</label>
     </div>
-    <div *ngIf="song.album">
-      <label for="song-album">Album: </label>
-      <label id="song-album">{{song.album}}</label>
-    </div>
-    <div *ngIf="song.year">
-      <label for="song-year">Year of publication: </label>
-      <label id="song-year">{{song.year}}</label>
-    </div>
-    <div *ngIf="song.lyric">
-      <label for="song-lyric">Song lyric: </label>
-    </div>
-  </div>
-  <div *ngIf="song.lyric">
-    <div>
-      <label id="song-lyric">{{song.lyric}}</label>
-    </div>
   </div>
 
 
@@ -39,18 +23,6 @@
         <div class="form-group">
           <label for="artist">Artist: </label>
           <input type="text" id="artist" name="artist" class="form-control" required [(ngModel)]="song.artist">
-        </div>
-        <div class="form-group">
-          <label for="album">Album: </label>
-          <input type="text" id="album" name="album" class="form-control" required [(ngModel)]="song.album">
-        </div>
-        <div class="form-group">
-          <label for="year">Year of pubblication: </label>
-          <input type="text" id="year" name="year" class="form-control" required [(ngModel)]="song.year">
-        </div>
-        <div class="form-group">
-          <label for="lyric">Lyric: </label>
-          <input type="text" id="lyric" name="lyric" class="form-control" required [(ngModel)]="song.lyric">
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
       </form>

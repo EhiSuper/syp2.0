@@ -20,22 +20,15 @@ public class Song {
     private String identifier;
     private String track;
     private String artist;
-    private Integer year;
-    private String lyric;
-    private String album;
     @Field("playlists")
     private List<Playlist> playlists;
 
     private Integer numberOfComments;
     private Integer numberOfPlaylists;
 
-    public Song(String track, String artist, Integer year, String lyric, String album,
-                List<Playlist> playlists, Integer numberOfComments, Integer numberOfPlaylists) {
+    public Song(String track, String artist, List<Playlist> playlists, Integer numberOfComments, Integer numberOfPlaylists) {
         this.track = track;
         this.artist = artist;
-        this.year = year;
-        this.lyric = lyric;
-        this.album = album;
         this.playlists = playlists;
         this.numberOfComments = numberOfComments;
         this.numberOfPlaylists = numberOfPlaylists;
@@ -64,30 +57,6 @@ public class Song {
 
     public void setArtist(String artist) {
         this.artist = artist;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public String getLyric() {
-        return lyric;
-    }
-
-    public void setLyric(String lyric) {
-        this.lyric = lyric;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
     }
 
     public List<Playlist> getPlaylists() {

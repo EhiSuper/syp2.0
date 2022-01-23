@@ -12,9 +12,6 @@ export class AddSongComponent implements OnInit {
 
   track: string | undefined
   artist: string | undefined
-  year: string | undefined
-  lyric: string | undefined
-  album: string | undefined
 
   constructor(private songService: SongService, private router: Router) { }
 
@@ -26,10 +23,7 @@ export class AddSongComponent implements OnInit {
   addSong(): void {
     var track = this.track
     var artist = this.artist
-    var year = this.year
-    var lyric = this.lyric
-    var album = this.album
-    this.songService.addSong({ track, artist, year, lyric, album } as Song)
+    this.songService.addSong({ track, artist } as Song)
     this.router.navigateByUrl('/dashboard');
   }
 }
