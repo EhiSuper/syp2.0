@@ -1,0 +1,11 @@
+.left-result{
+    width: 50%;
+    float: left;
+    border-width: 5px;
+}
+
+.right-result{
+    width: 50%;
+    float: left;
+    border-width: 5px;
+}

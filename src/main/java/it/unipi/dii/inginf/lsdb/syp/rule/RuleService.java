@@ -13,7 +13,7 @@ import java.util.List;
 
 import static it.unipi.dii.inginf.lsdb.syp.rule.RuleMining.minePatterns;
 
-@Service
+//@Service
 public class RuleService {
 
     private final MongoTemplate mongoTemplate;

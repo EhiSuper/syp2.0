@@ -3,39 +3,49 @@
         <h1>Add a new Playlist</h1>
         <form (ngSubmit)="addPlaylist()">
             <div class="form-group">
+                <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" required name="name" placeholder="Name"
                     [(ngModel)]="name">
             </div>
-
             <div>
-            <label for="songs">Add songs</label>
-            <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-
+                <label for="songs">Add songs</label>
+                <input #searchBox id="search-box" (input)="search(searchBox.value)" placeholder="Song">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success">Add Playlist</button>
+            </div>
             <div>
                 <ul class="search-result">
                     <li *ngFor="let song of songsList">
-                        {{song.track}}, {{song.artist}}
+                        <a>{{song.track}}, {{song.artist}}</a>
                     </li>
                 </ul>
             </div>
 
-            <ul class="search-result">
-                <li *ngFor="let song of songs$ | async">
-                    <a (click)="addSong(song)">
-                        {{song.track}}, {{song.artist}}
-                    </a>
-                </li>
-            </ul>
+            <div class="left-result">
+                <h3>Search result: </h3>
+               
+                <ul class="search-result">
+                    <li *ngFor="let song of songs$ | async">
+                        <a (click)="addSong(song)">
+                            {{song.track}}, {{song.artist}}
+                        </a>
+                    </li>
+                </ul>
+                
             </div>
-            <div>
+            <div class="right-result">
+                
                 <h3>Suggested songs</h3>
                 <h4>How these songs are Suggested?</h4>
                 <p>These songs are suggested based on playlists you follow.
-                    In particular, here are shown the most popular songs of artists that are frequently associated with the artists of the songs that you choose
-                    in the previous section. 
+                    In particular, here are shown the most popular songs of artists that are frequently associated with
+                    the artists of the songs that you choose
+                    in the previous section.
                 </p>
 
                 <div>
+                    <p *ngIf="suggestedSongs== undefined">Suggested songs not found</p>
                     <ul>
                         <li *ngFor="let song of suggestedSongs">
                             <a (click)="addSong(song)">
@@ -44,8 +54,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-success">Add Playlist</button>
+            </div>        
         </form>
     </div>
 </div>
