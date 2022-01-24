@@ -13,13 +13,16 @@ import java.util.List;
 
 import static it.unipi.dii.inginf.lsdb.syp.rule.RuleMining.minePatterns;
 
-//@Service
+@Service
 public class RuleService {
 
     private final MongoTemplate mongoTemplate;
 
     RuleService(MongoTemplate mongoTemplate){
         this.mongoTemplate = mongoTemplate;
+    }
+
+    void startMining(){
         List<String[]> records = buildDataset();
         try{
             List<AssociationRule> rules = minePatterns(records);

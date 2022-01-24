@@ -16,8 +16,8 @@ import java.util.List;
 
 public class RuleMining {
 
-    public static Double minSup = 0.003;
-    public static Double minConf = 0.6;
+    public static Double minSup = 0.002;
+    public static Double minConf = 0.7;
     public static List<AssociationRule> minePatterns(List<String[]> records) throws Exception{
         List<Instances> datasets = createDataset(records);
         Instances denormalizedDataset = denormalizeDataset(datasets);
