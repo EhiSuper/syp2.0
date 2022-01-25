@@ -76,7 +76,7 @@ export class SongService {
   }
 
   mineRules(){
-    const url = `${this.songsUrl}/findRules`;
+    const url = `${this.serverUrl}/api/rules/findRules`;
     return this.http.get<String>(url).pipe(
       catchError(this.handleError<String>("findRules"))
     )
