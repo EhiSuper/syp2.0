@@ -13,7 +13,7 @@ public class RuleController {
         this.ruleService = ruleService;
     }
 
-    @GetMapping("/api/songs/findRules")
+    @GetMapping("/api/rules/findRules")
     void mineRules(){
         ruleService.startMining();
     }
