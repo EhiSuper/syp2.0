@@ -98,9 +98,9 @@ public class RuleService {
                                    null, null, null);
                 ruleDTO.setPremise(rule.getPremise());
                 ruleDTO.setConsequent(rule.getConsequence());
-                ruleDTO.setPremiseSupport(rule.getPremiseSupport());
-                ruleDTO.setConsequentSupport(rule.getConsequenceSupport());
-                ruleDTO.setRuleSupport(rule.getTotalSupport());
+                //ruleDTO.setPremiseSupport(rule.getPremiseSupport());
+                //ruleDTO.setConsequentSupport(rule.getConsequenceSupport());
+                //ruleDTO.setRuleSupport(rule.getTotalSupport());
                 saveRule(ruleDTO);
             }
     }
