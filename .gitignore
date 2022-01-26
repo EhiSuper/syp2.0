@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Compiled class file
+*.class
+
 ### STS ###
 .apt_generated
 .classpath
@@ -12,7 +15,6 @@ target/
 .settings
 .springBeans
 .sts4-cache
-*.class
 
 ### IntelliJ IDEA ###
 .idea
