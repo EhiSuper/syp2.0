@@ -72,8 +72,8 @@ public class RuleMining {
         miner.buildAssociations(denormalizedDataset);
         Long timeTook = System.currentTimeMillis() - initialTime;
         Double seconds = timeTook.doubleValue() / 1000;
-        System.out.println("Tempo impiegato: " + seconds + " secondi");
-        System.out.println(miner);
+        System.out.println("Time taken: " + seconds + " seconds");
+        System.out.println("mining successfully completed");
         return miner.getAssociationRules().getRules();
     }
 
@@ -87,7 +87,7 @@ public class RuleMining {
         Long timeTook = System.currentTimeMillis() - initialTime;
         Double seconds = timeTook.doubleValue() / 1000;
         System.out.println("Tempo impiegato: " + seconds + " secondi");
-        System.out.println(miner);
+        System.out.println("mining succesfully completed");
         return miner.getAssociationRules().getRules();
     }
 }

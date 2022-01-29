@@ -9,3 +9,11 @@
     float: left;
     border-width: 5px;
 }
+
+.right-result h3, .right-result p{
+  margin-left: 25%;
+}
+
+.left-result h3{
+  margin-left: 25%;
+}

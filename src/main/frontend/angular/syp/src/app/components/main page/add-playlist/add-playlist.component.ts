@@ -88,6 +88,8 @@ export class AddPlaylistComponent implements OnInit {
   //function to get the suggested songs based of the added songs
   getSuggestedSongs(): void{
     this.songService.getSuggestedSongs(this.songsList)
-      .subscribe(songs => this.suggestedSongs = songs)
+      .subscribe(songs => {
+        if(songs.length > 0)
+          this.suggestedSongs = songs})
   }
 }
