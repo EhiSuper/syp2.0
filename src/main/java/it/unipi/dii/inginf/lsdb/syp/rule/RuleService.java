@@ -25,6 +25,7 @@ public class RuleService {
     void startMining(){
         List<String[]> records = buildDataset();
         try{
+            System.out.println("initialized mining successfully");
             List<AssociationRule> rules = minePatterns(records);
             saveRules(rules);
         } catch (Exception e){

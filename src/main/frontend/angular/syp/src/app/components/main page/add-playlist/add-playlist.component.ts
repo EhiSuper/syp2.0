@@ -90,6 +90,23 @@ export class AddPlaylistComponent implements OnInit {
     this.songService.getSuggestedSongs(this.songsList)
       .subscribe(songs => {
         if(songs.length > 0)
-          this.suggestedSongs = songs})
+          this.suggestedSongs = songs
+        else
+          this.suggestedSongs = undefined})
+  }
+
+  //function to delete the song from the current playlist
+  deleteSongFromPlaylist(song: Song): void{
+    var index = this.findIndex(song.id)
+    this.songsList.splice(index, 1)
+    this.getSuggestedSongs()
+  }
+
+  //function to find the index of the song in the current playlist
+  findIndex(songId: string): number{
+    for(var i=0; i<this.songsList.length; i++){
+      if(this.songsList[i].id == songId) return i
+    }
+    return -1
   }
 }

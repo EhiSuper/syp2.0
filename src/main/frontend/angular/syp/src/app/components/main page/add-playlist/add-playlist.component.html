@@ -18,6 +18,8 @@
                 <ul class="search-result">
                     <li *ngFor="let song of songsList">
                         <a>{{song.track}}, {{song.artist}}</a>
+                        <button class="delete" title="delete song"
+                              (click)="deleteSongFromPlaylist(song)">x</button>
                     </li>
                 </ul>
             </div>
